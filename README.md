@@ -20,7 +20,7 @@ git clone https://github.com/shikishima-TasakiLab/tensorflow-jetson-docker.git T
 |-------------|-------------|------------------------------------------|----------|-------------------------------------------|
 |`-h`, `--help`   |なし         |このヘルプを表示                          |なし      |`-h`|
 |`-v`, `--version`|VERSION      |TensorFlowのバージョンを指定する          |`2.0`       |`-v 1.15`|
-|`-c`, `--opencv` |{VERSION|OFF}|OpenCVのバージョンを指定する．インストールしない場合は"off"|`4.3.0`|`-c 3.4.1` , `-c off`|
+|`-c`, `--opencv` |{VERSION\|OFF}|OpenCVのバージョンを指定する．インストールしない場合は"off"|`4.3.0`|`-c 3.4.1` , `-c off`|
 
 ### Dockerコンテナの起動
 
