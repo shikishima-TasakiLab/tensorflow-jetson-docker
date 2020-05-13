@@ -23,6 +23,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         sudo \
         build-essential \
+        pkg-config \
         git \
         less \
         emacs \
@@ -47,6 +48,8 @@ RUN apt-get update && \
         libhdf5-dev \
         zlib1g-dev \
         zip \
+        libpng-dev \
+        libfreetype6-dev \
         libjpeg8-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
