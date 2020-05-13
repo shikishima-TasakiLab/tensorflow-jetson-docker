@@ -58,34 +58,22 @@ done
 DF_TF_VERSION=$(echo ${TF_VERSION} | sed -e 's/\./-/')
 TF_IMAGE_NAME="jetson/tensorflow:${TF_VERSION}-py3"
 
-#docker build \
-#    -t ${TF_IMAGE_NAME} \
-#    -f ${BUILD_DIR}/Dockerfile.py3_tf-${DF_TF_VERSION} \
-#    ${BUILD_DIR}
+docker build \
+    -t ${TF_IMAGE_NAME} \
+    -f ${BUILD_DIR}/Dockerfile.py3_tf-${DF_TF_VERSION} \
+    ${BUILD_DIR}
 
 if [[ ${OPENCV_VERSION} != "off" ]]; then
-#    XSOCK="/tmp/.X11-unix"
-#    XAUTH="/tmp/.docker.xauth"
-
     HOST_SRC=${BUILD_DIR}/opencv.sh
 
-#    DOCKER_VOLUME="${DOCKER_VOLUME} -v ${XSOCK}:${XSOCK}:rw"
-#    DOCKER_VOLUME="${DOCKER_VOLUME} -v ${XAUTH}:${XAUTH}:rw"
     DOCKER_VOLUME="${DOCKER_VOLUME} -v ${HOST_SRC}:/tmp/opencv/opencv.sh:rw"
 
     DOCKER_ENV="-e USER_ID=${USER_ID}"
-#    DOCKER_ENV="${DOCKER_ENV} -e XAUTHORITY=${XAUTH}"
-#    DOCKER_ENV="${DOCKER_ENV} -e DISPLAY=$DISPLAY"
-#    DOCKER_ENV="${DOCKER_ENV} -e TERM=xterm-256color"
-#    DOCKER_ENV="${DOCKER_ENV} -e QT_X11_NO_MITSHM=1"
 
     DOCKER_NET="host"
 
     CONTAINER_NAME="opencv-build"
     CONTAINER_CMD="/bin/bash /tmp/opencv/opencv.sh -v ${OPENCV_VERSION}"
-
-#    touch ${XAUTH}
-#    xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f ${XAUTH} nmerge -
 
     CONTAINER_EXIST=$(docker ps -a | grep ${CONTAINER_NAME})
     if [[ -n ${CONTAINER_EXIST} ]]; then
