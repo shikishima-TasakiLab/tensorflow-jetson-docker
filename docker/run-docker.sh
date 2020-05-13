@@ -87,7 +87,7 @@ END
         DOCKER_IMAGE="${images[0]}"
         echo "${DOCKER_IMAGE}"
     else
-        echo "番号"
+        echo -e "番号\tイメージ:タグ"
         cnt=0
         for im in ${images[@]}; do
             echo -e "${cnt}:\t${im}"
