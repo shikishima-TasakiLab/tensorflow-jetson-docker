@@ -10,6 +10,7 @@ if [ -v USER_ID ] && [ "$USER_ID" != "$DEFAULT_USER_ID" ]; then
 fi
 
 cd /home/tensorflow
+PYTHONIOENCODING=utf-8
 
 if [ -z "$1" ]; then
     set - "/bin/bash" -l
