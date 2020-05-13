@@ -8,15 +8,15 @@ ARG USER_NAME="tensorflow"
 
 SHELL ["/bin/bash", "-c"]
 
-RUN useradd -m $USER_NAME && \
-    echo "$USER_NAME:$USER_NAME" | chpasswd && \
-    usermod --shell /bin/bash $USER_NAME && \
-    usermod -aG sudo $USER_NAME && \
-    echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/$USER_NAME && \
-    chmod 0440 /etc/sudoers.d/$USER_NAME && \
-    usermod  --uid $HOST_USER $USER_NAME && \
-    groupmod --gid $HOST_USER $USER_NAME && \
-    gpasswd -a $USER_NAME video
+RUN useradd -m ${USER_NAME} && \
+    echo "${USER_NAME}:${USER_NAME}" | chpasswd && \
+    usermod --shell /bin/bash ${USER_NAME} && \
+    usermod -aG sudo ${USER_NAME} && \
+    echo "${USER_NAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/${USER_NAME} && \
+    chmod 0440 /etc/sudoers.d/${USER_NAME} && \
+    usermod  --uid $HOST_USER ${USER_NAME} && \
+    groupmod --gid $HOST_USER ${USER_NAME} && \
+    gpasswd -a ${USER_NAME} video
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && \
@@ -49,12 +49,13 @@ RUN apt-get update && \
         zip \
         libjpeg8-dev && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    echo "PYTHONIOENCODING=utf-8" >> /home/${USER_NAME}/.bashrc
 
 RUN pip3 install \
         setuptools \
         Cython \
-        wheel
+        wheel --verbose
 RUN pip3 install \
         numpy --verbose
 RUN HDF5_DIR=/usr/lib/aarch64-linux-gnu/hdf5/serial/ \
@@ -69,6 +70,15 @@ RUN pip3 install \
         futures \
         protobuf \
         pybind11 --verbose
+RUN pip3 install \
+        six \
+        cycler \
+        kiwisolver \
+        pyparsing \
+        python-dateutil \
+        scikit-image==0.16.2 --verbose
+RUN pip3 install --no-dependencies \
+        matplotlib --verbose
 
 WORKDIR /tmp/tensorflow
 ARG TENSORFLOW_WHL=tensorflow_gpu-1.15.0+nv19.11-cp36-cp36m-linux_aarch64.whl

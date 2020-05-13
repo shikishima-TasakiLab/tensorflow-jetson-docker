@@ -83,3 +83,5 @@ sudo apt-get install -y \
 sudo rm -rf /var/lib/apt/lists/*
 
 rm -rf /tmp/opencv/opencv-${OPENCV_VERSION}.zip /tmp/opencv/opencv_contrib-${OPENCV_VERSION}.zip
+
+sudo pip3 install --no-dependencies imgaug --verbose
