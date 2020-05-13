@@ -86,7 +86,7 @@ RUN wget https://developer.download.nvidia.com/compute/redist/jp/v42/tensorflow-
     pip3 install ${TENSORFLOW_WHL} --verbose && \
     rm ${TENSORFLOW_WHL}
 ENV PATH="/usr/local/cuda/bin:${PATH}"
-ENV LD_LIBRARY_PATH="/usr/local/cuda/lib64:${LD_LIBRARY_PATH}"
+ENV LD_LIBRARY_PATH="/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64:${LD_LIBRARY_PATH}"
 RUN pip3 install pycuda --verbose
 
 USER ${USER_NAME}
