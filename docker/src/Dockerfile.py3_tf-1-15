@@ -39,6 +39,8 @@ RUN apt-get update && \
         libglu1-mesa-dev \
         libgles2-mesa-dev \
         freeglut3-dev \
+        libcanberra-gtk-module \
+        libcanberra-gtk3-module \
         python3-pip \
         python3-dev \
         gfortran \
@@ -82,6 +84,8 @@ RUN pip3 install \
         scikit-image==0.16.2 --verbose
 RUN pip3 install --no-dependencies \
         matplotlib --verbose
+RUN pip3 install \
+        pyyaml --verbose
 
 WORKDIR /tmp/tensorflow
 ARG TENSORFLOW_WHL=tensorflow_gpu-1.15.0+nv19.11-cp36-cp36m-linux_aarch64.whl
